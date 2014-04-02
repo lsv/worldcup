@@ -1,19 +1,21 @@
 <?php
-
 namespace Wc\GameBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Wc\GameBundle\App;
 
-class DefaultController extends Controller
+class DefaultController extends App
 {
     /**
-     * @Route("/hello/{name}")
+     * @Route("/", name="wc_gamebundle_default")
      * @Template()
      */
-    public function indexAction($name)
+    public function indexAction()
     {
-        return array('name' => $name);
+        return array(
+            'stages' => $this->getStageRepo()->findAll()
+        );
     }
 }

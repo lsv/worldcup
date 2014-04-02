@@ -23,7 +23,9 @@
         "knplabs/knp-menu": "2.0.*@dev",
         "craue/formflow-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "leafo/lessphp": "0.4.0"
+        "oyejorge/less.php": "1.*",
+        "atelierspierrot/famfamfam-flags-sprite": "1.*",
+        "doctrine/doctrine-fixtures-bundle": "2.*"
     },
     "scripts": {
         "post-install-cmd": [
