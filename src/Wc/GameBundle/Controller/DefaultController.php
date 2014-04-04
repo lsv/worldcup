@@ -15,7 +15,8 @@ class DefaultController extends App
     public function indexAction()
     {
         return array(
-            'stages' => $this->getStageRepo()->findAll()
+            'stages' => $this->getStageRepo()->getGroups(),
+            'knockouts' => $this->getKnockoutRepo()->getMatches(),
         );
     }
 }

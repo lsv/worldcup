@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Team
  *
  * @ORM\Table(name="team")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Wc\GameBundle\Entity\Repository\Team")
  */
 class Team
 {
@@ -37,14 +37,14 @@ class Team
     private $iso2name;
 
     /**
-     * @var Game[]
+     * @var ArrayCollection>Game[]
      *
      * @ORM\OneToMany(targetEntity="Game", mappedBy="hometeam")
      */
     private $hometeams;
 
     /**
-     * @var Game[]
+     * @var ArrayCollection>Game[]
      *
      * @ORM\OneToMany(targetEntity="Game", mappedBy="awayteam")
      */
@@ -119,7 +119,7 @@ class Team
      * @param \Wc\GameBundle\Entity\Game $hometeams
      * @return Team
      */
-    public function addHometeam(\Wc\GameBundle\Entity\Game $hometeams)
+    public function addHometeam(Game $hometeams)
     {
         $this->hometeams[] = $hometeams;
 
@@ -131,7 +131,7 @@ class Team
      *
      * @param \Wc\GameBundle\Entity\Game $hometeams
      */
-    public function removeHometeam(\Wc\GameBundle\Entity\Game $hometeams)
+    public function removeHometeam(Game $hometeams)
     {
         $this->hometeams->removeElement($hometeams);
     }
@@ -152,7 +152,7 @@ class Team
      * @param \Wc\GameBundle\Entity\Game $awayteams
      * @return Team
      */
-    public function addAwayteam(\Wc\GameBundle\Entity\Game $awayteams)
+    public function addAwayteam(Game $awayteams)
     {
         $this->awayteams[] = $awayteams;
 
@@ -164,7 +164,7 @@ class Team
      *
      * @param \Wc\GameBundle\Entity\Game $awayteams
      */
-    public function removeAwayteam(\Wc\GameBundle\Entity\Game $awayteams)
+    public function removeAwayteam(Game $awayteams)
     {
         $this->awayteams->removeElement($awayteams);
     }
@@ -178,4 +178,5 @@ class Team
     {
         return $this->awayteams;
     }
+
 }

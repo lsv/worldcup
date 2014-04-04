@@ -1,4 +1,16 @@
 {% extends '::base.html.twig' %}
 {% block content %}
-    Hallooo
+    <ul class="nav nav-pills nav-justified">
+        <li class="active"><a href="#groupstage" data-toggle="tab">Groups</a></li>
+        <li><a href="#knockout" data-toggle="tab">Knouckout</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="groupstage">
+            {% include 'WcGameBundle:Default/_p:groupstage.html.twig' with {'stages': stages} %}
+        </div>
+        <div class="tab-pane" id="knockout">
+            {% include 'WcGameBundle:Default/_p:knockout.html.twig' with {'stages': knockouts} %}
+        </div>
+    </div>
 {% endblock %}

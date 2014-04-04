@@ -3,6 +3,7 @@ namespace Wc\GameBundle\DataFixtures;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Faker\Factory;
 
 abstract class Fixture extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -21,7 +22,7 @@ abstract class Fixture extends AbstractFixture implements OrderedFixtureInterfac
         'round_16' => array('name' => 'Round of 16', 'isgroup' => false),
         'round_8' => array('name' => 'Quarter finals', 'isgroup' => false),
         'round_4' => array('name' => 'Semi finals', 'isgroup' => false),
-        'thirdplace' => array('name' => 'Third place', 'isgroup' => false),
+        //'thirdplace' => array('name' => 'Third place', 'isgroup' => false),
         'final' => array('name' => 'Final', 'isgroup' => false),
     );
 
@@ -71,77 +72,82 @@ abstract class Fixture extends AbstractFixture implements OrderedFixtureInterfac
     public function __construct()
     {
         $this->matches['group_a'] = <<<CSV
-1	12/06 17:00 Sao Paulo		Brazil	-	Croatia
-2	13/06 13:00	Natal		Mexico	-	Cameroon
-17	17/06 16:00	Fortaleza		Brazil	-	Mexico
-18	18/06 18:00	Manaus		Cameroon	-	Croatia
-33	23/06 17:00	Brasilia		Cameroon	-	Brazil
-34	23/06 17:00	Recife		Croatia	-	Mexico
+1	12/06 22:00	Sao Paulo		Brazil	-	Croatia
+2	13/06 18:00	Natal		Mexico	-	Cameroon
+17	17/06 21:00	Fortaleza		Brazil	-	Mexico
+18	19/06 00:00	Manaus		Cameroon	-	Croatia
+33	23/06 22:00	Brasilia		Cameroon	-	Brazil
+34	23/06 22:00	Recife		Croatia	-	Mexico
 CSV;
         $this->matches['group_b'] = <<<CSV
-3	13/06 16:00	Salvador		Spain	-	Netherlands
-4	13/06 18:00	Cuiaba		Chile	-	Australia
-19	18/06 16:00	Rio De Janeiro		Spain	-	Chile
-20	18/06 13:00	Porto Alegre		Australia	-	Netherlands
-35	23/06 13:00	Curitiba		Australia	-	Spain
-36	23/06 13:00	Sao Paulo		Netherlands	-	Chile
+3	13/06 21:00	Salvador		Spain	-	Netherlands
+4	14/06 00:00	Cuiaba		Chile	-	Australia
+19	18/06 21:00	Rio De Janeiro		Spain	-	Chile
+20	18/06 18:00	Porto Alegre		Australia	-	Netherlands
+35	23/06 18:00	Curitiba		Australia	-	Spain
+36	23/06 18:00	Sao Paulo		Netherlands	-	Chile
 CSV;
 
         $this->matches['group_c'] = <<<CSV
-5	14/06 13:00	Belo Horizonte		Colombia	-	Greece
-6	14/06 22:00	Recife		Ivory Coast	-	Japan
-21	19/06 13:00	Brasilia		Colombia	-	Ivory Coast
-22	19/06 19:00	Natal		Japan	-	Greece
-37	24/06 16:00	Cuiaba		Japan	-	Colombia
-38	24/06 17:00	Fortaleza		Greece	-	Ivory Coast
+5	14/06 18:00	Belo Horizonte		Colombia	-	Greece
+6	15/06 03:00	Recife		Ivory Coast	-	Japan
+21	19/06 18:00	Brasilia		Colombia	-	Ivory Coast
+22	20/06 00:00	Natal		Japan	-	Greece
+37	24/06 22:00	Cuiaba		Japan	-	Colombia
+38	24/06 22:00	Fortaleza		Greece	-	Ivory Coast
 CSV;
 
         $this->matches['group_d'] = <<<CSV
-7	14/06 16:00	Fortaleza		Uruguay	-	Costa Rica
-8	14/06 18:00	Manaus		England	-	Italy
-23	19/06 16:00	Sao Paulo		Uruguay	-	England
-24	20/06 13:00	Recife		Italy	-	Costa Rica
-39	24/06 13:00	Natal		Italy	-	Uruguay
-40	24/06 13:00	Belo Horizonte		Costa Rica	-	England
+7	14/06 21:00	Fortaleza		Uruguay	-	Costa Rica
+8	15/06 00:00	Manaus		England	-	Italy
+23	19/06 21:00	Sao Paulo		Uruguay	-	England
+24	20/06 18:00	Recife		Italy	-	Costa Rica
+39	24/06 18:00	Natal		Italy	-	Uruguay
+40	24/06 18:00	Belo Horizonte		Costa Rica	-	England
 CSV;
 
         $this->matches['group_e'] = <<<CSV
-9	15/06 13:00	Brasilia		Switzerland	-	Ecuador
-10	15/06 16:00	Porto Alegre		France	-	Honduras
-25	20/06 16:00	Salvador		Switzerland	-	France
-26	20/06 19:00	Curitiba		Honduras	-	Ecuador
-41	25/06 16:00	Manaus		Honduras	-	Switzerland
-42	25/06 17:00	Rio De Janeiro		Ecuador	-	France
+9	15/06 18:00	Brasilia		Switzerland	-	Ecuador
+10	15/06 21:00	Porto Alegre		France	-	Honduras
+25	20/06 21:00	Salvador		Switzerland	-	France
+26	21/06 00:00	Curitiba		Honduras	-	Ecuador
+41	25/06 22:00	Manaus		Honduras	-	Switzerland
+42	25/06 22:00	Rio De Janeiro		Ecuador	-	France
 CSV;
 
         $this->matches['group_f'] = <<<CSV
-11	15/06 19:00	Rio De Janeiro		Argentina	-	Bosnia and Herzegovina
-12	16/06 16:00	Curitiba		Iran	-	Nigeria
-27	21/06 13:00	Belo Horizonte		Argentina	-	Iran
-28	21/06 18:00	Cuiaba		Nigeria	-	Bosnia and Herzegovina
-43	25/06 13:00	Porto Alegre		Nigeria	-	Argentina
-44	25/06 13:00	Salvador		Bosnia and Herzegovina	-	Iran
+11	16/06 00:00	Rio De Janeiro		Argentina	-	Bosnia and Herzegovina
+12	16/06 21:00	Curitiba		Iran	-	Nigeria
+27	21/06 18:00	Belo Horizonte		Argentina	-	Iran
+28	22/06 00:00	Cuiaba		Nigeria	-	Bosnia and Herzegovina
+43	25/06 18:00	Porto Alegre		Nigeria	-	Argentina
+44	25/06 18:00	Salvador		Bosnia and Herzegovina	-	Iran
 CSV;
 
         $this->matches['group_g'] = <<<CSV
-13	16/06 13:00	Salvador		Germany	-	Portugal
-14	16/06 19:00	Natal		Ghana	-	United States
-29	21/06 16:00	Fortaleza		Germany	-	Ghana
-30	22/06 18:00	Manaus		United States	-	Portugal
-45	26/06 13:00	Recife		United States	-	Germany
-46	26/06 13:00	Brasilia		Portugal	-	Ghana
+13	16/06 18:00	Salvador		Germany	-	Portugal
+14	17/06 00:00	Natal		Ghana	-	United States
+29	21/06 21:00	Fortaleza		Germany	-	Ghana
+30	23/06 00:00	Manaus		United States	-	Portugal
+45	26/06 18:00	Recife		United States	-	Germany
+46	26/06 18:00	Brasilia		Portugal	-	Ghana
 CSV;
 
         $this->matches['group_h'] = <<<CSV
-15	17/06 13:00	Belo Horizonte		Belgium	-	Algeria
-16	17/06 18:00	Cuiaba		Russia	-	South Korea
-31	22/06 13:00	Rio De Janeiro		Belgium	-	Russia
-32	22/06 16:00	Porto Alegre		South Korea	-	Algeria
-47	26/06 17:00	Sao Paulo		South Korea	-	Belgium
-48	26/06 17:00	Curitiba		Algeria	-	Russia
+15	17/06 18:00	Belo Horizonte		Belgium	-	Algeria
+16	18/06 00:00	Cuiaba		Russia	-	South Korea
+31	22/06 18:00	Rio De Janeiro		Belgium	-	Russia
+32	22/06 21:00	Porto Alegre		South Korea	-	Algeria
+47	26/06 22:00	Sao Paulo		South Korea	-	Belgium
+48	26/06 22:00	Curitiba		Algeria	-	Russia
 CSV;
 
 
+    }
+
+    protected function getFaker()
+    {
+        return Factory::create();
     }
 
 } 

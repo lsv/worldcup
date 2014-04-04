@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Stage
  *
- * @ORM\Table(name="stage")
+ * @ORM\Table(name="stage",indexes={@ORM\Index(name="stage_idx", columns={"stage"})})
  * @ORM\Entity(repositoryClass="Wc\GameBundle\Entity\Repository\Stage")
  */
 class Stage
@@ -44,15 +44,25 @@ class Stage
     private $isGroup = true;
 
     /**
-     * @var Game[]
+     * @var ArrayCollection>Game[]
      *
      * @ORM\OneToMany(targetEntity="Game", mappedBy="stage")
+     * @ORM\OrderBy({"matchdate" = "ASC"})
      */
     private $games;
+
+    /**
+     * @var ArrayCollection>Knockout[]
+     *
+     * @ORM\OneToMany(targetEntity="Knockout", mappedBy="stage")
+     * @ORM\OrderBy({"matchdate" = "ASC"})
+     */
+    private $knockouts;
 
     public function __construct()
     {
         $this->games = new ArrayCollection();
+        $this->knockouts = new ArrayCollection();
     }
 
     /**
@@ -117,7 +127,7 @@ class Stage
      * @param \Wc\GameBundle\Entity\Game $games
      * @return Stage
      */
-    public function addGame(\Wc\GameBundle\Entity\Game $games)
+    public function addGame(Game $games)
     {
         $this->games[] = $games;
 
@@ -129,7 +139,7 @@ class Stage
      *
      * @param \Wc\GameBundle\Entity\Game $games
      */
-    public function removeGame(\Wc\GameBundle\Entity\Game $games)
+    public function removeGame(Game $games)
     {
         $this->games->removeElement($games);
     }
@@ -165,5 +175,38 @@ class Stage
     public function getIsGroup()
     {
         return $this->isGroup;
+    }
+
+    /**
+     * Add knockouts
+     *
+     * @param \Wc\GameBundle\Entity\Knockout $knockouts
+     * @return Stage
+     */
+    public function addKnockout(Knockout $knockouts)
+    {
+        $this->knockouts[] = $knockouts;
+
+        return $this;
+    }
+
+    /**
+     * Remove knockouts
+     *
+     * @param \Wc\GameBundle\Entity\Knockout $knockouts
+     */
+    public function removeKnockout(Knockout $knockouts)
+    {
+        $this->knockouts->removeElement($knockouts);
+    }
+
+    /**
+     * Get knockouts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getKnockouts()
+    {
+        return $this->knockouts;
     }
 }

@@ -1,0 +1,51 @@
+<div class="bracket row">
+{% for stage in stages %}
+    {% set ii = loop.index %}
+    <div class="bracket-column col-xs-3">
+        <div class="bracket-header">{{ stage.data.name }}</div>
+        {% for m in stage.matches %}
+            {% set ht = m.hometeam %}
+            {% if m.hometeam.name is defined %}
+                {% set ht %}{% include 'WcGameBundle:Default/_p:team.html.twig' with {'team': m.hometeam} %}{% endset %}
+            {% endif %}
+            {% set at = m.awayteam %}
+            {% if m.awayteam.name is defined %}
+                {% set at %}{% include 'WcGameBundle:Default/_p:team.html.twig' with {'team': m.awayteam} %}{% endset %}
+            {% endif %}
+
+            <div class="bracket-game">
+                <div class="bracket-cell-r{{ ii }}">
+                    <div class="bracket-info-cell">
+                        {{ m.matchdate|date('m/d') }}<br />
+                        {{ m.matchdate|date('H:i') }}
+                    </div>
+                    <div class="bracket-player-top {{ m.getHomeStateClass }}">
+                        {{ ht }}
+                        <div class="bracket-score">
+                            {{ m.homeresult|default("") }}
+                            {% if m.getHomePenaltyResult %}
+                                ({{ m.getHomePenaltyResult }})
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bracket-cell-r{{ ii }}">
+                    <div class="bracket-player-bottom {{ m.getAwayStateClass }}">
+                        {{ at }}
+                        <div class="bracket-score">
+                            {{ m.awayresult|default("") }}
+                            {% if m.getAwayPenaltyResult %}
+                                ({{ m.getAwayPenaltyResult }})
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        {% endfor %}
+    </div>
+{% endfor %}
+</div>

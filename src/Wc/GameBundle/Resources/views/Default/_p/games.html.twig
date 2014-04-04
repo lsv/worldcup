@@ -1,0 +1,24 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th class="text-right">Team</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>Team</th>
+        </tr>
+    </thead>
+{% for game in games %}
+    <tr>
+        <td><small class="text-muted">{{ game.matchid }}</small></td>
+        <td><small class="text-muted">{{ game.matchdate|date('m/d H:i') }}</small></td>
+        <td class="{{ game.getHomeStateClass }} col-xs-4 text-right">{% include 'WcGameBundle:Default/_p:team.html.twig' with {'team': game.hometeam, 'right':true} %}</td>
+        <td class="{{ game.getHomeStateClass }} text-right">{{ game.homeresult|default("") }}</td>
+        <td style="width:10px;"> - </td>
+        <td class="{{ game.getAwayStateClass }}">{{ game.awayresult|default("") }}</td>
+        <td class="{{ game.getAwayStateClass }} col-xs-4">{% include 'WcGameBundle:Default:_p/team.html.twig' with {'team': game.awayteam} %}</td>
+    </tr>
+{% endfor %}
+</table>

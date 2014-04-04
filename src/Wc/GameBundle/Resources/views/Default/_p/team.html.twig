@@ -1,0 +1,8 @@
+{% set flag %}<i class="team-flag flag-icon {{ team.iso2name }}"></i>{% endset %}
+{% set teamname %}<span class="teamname" data-teamid="{{ team.id }}">{{ team.name }}</span>{% endset %}
+
+{% if right is defined %}
+     {{ teamname }} {{ flag }}
+{% else %}
+    {{ flag }} {{ teamname }}
+{% endif %}

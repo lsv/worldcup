@@ -1,0 +1,137 @@
+@import "../../../../../vendor/mopa/bootstrap-bundle/Mopa/Bundle/BootstrapBundle/Resources/public/less/bootstrap-fontawesome.less";
+@import "../../../../../vendor/mopa/bootstrap-bundle/Mopa/Bundle/BootstrapBundle/Resources/public/less/paginator.less";
+@import "../../../../../vendor/mopa/bootstrap-bundle/Mopa/Bundle/BootstrapBundle/Resources/public/less/subnav.less";
+@import "../../../../../vendor/mopa/bootstrap-bundle/Mopa/Bundle/BootstrapBundle/Resources/public/less/collections.less";
+@import "../../../../../vendor/mopa/bootstrap-bundle/Mopa/Bundle/BootstrapBundle/Resources/public/less/google-maps.less";
+
+@img-path: "/bundles/wcgame/img/";
+
+@import 'flags-sprite.less';
+@import "variables.less";
+
+.team-flag {
+  margin-top: 2px;
+}
+
+.teamname.hover {
+  font-weight: bold;
+}
+
+tfoot td {&:extend(.text-muted all);
+  font-size: @font-size-small;
+}
+
+/* Brackets */
+.bracket {
+  @cell-height: 50px;
+  @infocell-fix: 4px;
+  @infocell-width: 15%;
+
+  .basket-cell(@num) {
+    height: @num * @cell-height;
+    position: relative;
+    > .bracket-info-cell {
+      top: (@num * @cell-height) - (@cell-height / 2) - (@infocell-fix / 2);
+    }
+  }
+
+  margin-top: 20px;
+
+  .bracket-header {
+    border-radius: 2px;
+    border: 1px solid #aaa;
+    padding: 2px 0 2px 0;
+    position: relative;
+    left: 0;
+    right: 0;
+    line-height: @cell-height / 2;
+    margin-bottom: 20px;
+    text-align: center;
+    background: #ebebeb;
+  }
+
+  .bracket-cell-r1 {
+    .basket-cell(1);
+  }
+  .bracket-cell-r2 {
+    .basket-cell(2);
+  }
+  .bracket-cell-r3 {
+    .basket-cell(4);
+  }
+  .bracket-cell-r4 {
+    .basket-cell(8);
+  }
+
+  .bracket-column {
+    float: left;
+    position: relative;
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  .bracket-info-cell,
+  .bracket-player-top,
+  .bracket-player-bottom {
+    border-radius: 0 0 2px 2px;
+    border: solid #aaa 1px;
+    position: absolute;
+    padding-left:10px;
+    line-height: @cell-height / 2;
+    background: #f2f2f2;
+    left: @infocell-width;
+    right: 0;
+  }
+
+  .bracket-info-cell {
+    left:0;
+    width:@infocell-width;
+    height: @cell-height + @infocell-fix;
+    border-right:0;
+    padding-left:0;
+    text-align: center;
+    &:extend(.text-muted all);
+    font-size:@font-size-small;
+  }
+
+  .bracket-player-bottom,
+  .bracket-player-top {
+    border-radius: 2px 2px 0 0;
+    &.success {
+      background-color: @state-success-bg;
+    }
+    &.danger {
+      background-color: @state-danger-bg;
+    }
+    &.warning {
+      background-color: @state-warning-bg;
+    }
+    .bracket-score {
+      width: 35px;
+      text-align: center;
+      background: #ebebeb;
+      border-left: 1px solid #aaa;
+      position: absolute;
+      line-height: @cell-height / 2;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+  }
+
+  .bracket-player-top {bottom: 0;}
+
+  .bracket-player-bottom .bracket-score {
+    border-bottom-right-radius: 2px;
+  }
+
+  .bracket-player-bottom .bracket-score {
+    border-top-right-radius: 2px;
+  }
+
+  .bracket-game {
+    position: relative;
+  }
+
+}

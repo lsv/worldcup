@@ -1,0 +1,63 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th class="col-xs-4">Team</th>
+            <th>Pl</th>
+            <th>W</th>
+            <th>D</th>
+            <th>L</th>
+            <th>Gf</th>
+            <th>Ga</th>
+            <th>Gd</th>
+            <th class="text-center">P</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% set totals_played = 0 %}
+    {% set totals_wins = 0 %}
+    {% set totals_draws = 0 %}
+    {% set totals_loss = 0 %}
+    {% set totals_goalsfor = 0 %}
+    {% set totals_goalsagainst = 0 %}
+    {% set totals_goalsdiff = 0 %}
+    {% set totals_points = 0 %}
+    {% for stand in standings %}
+        <tr>
+            <td>{% include 'WcGameBundle:Default:_p/team.html.twig' with {'team': stand.team} %}</td>
+            <td>{{ stand.data.getPlayed }}</td>
+            {% set totals_played = totals_played + stand.data.getPlayed %}
+            <td>{{ stand.data.getWins }}</td>
+            {% set totals_wins = totals_wins + stand.data.getWins %}
+            <td>{{ stand.data.getDraws }}</td>
+            {% set totals_draws = totals_draws + stand.data.getDraws %}
+            <td>{{ stand.data.getLosses }}</td>
+            {% set totals_loss = totals_loss + stand.data.getLosses %}
+            <td>{{ stand.data.getGoalsFor }}</td>
+            {% set totals_goalsfor = totals_goalsfor + stand.data.getGoalsFor %}
+            <td>{{ stand.data.getGoalsAgainst }}</td>
+            {% set totals_goalsagainst = totals_goalsagainst + stand.data.getGoalsAgainst %}
+            <td>{{ stand.data.getGoalsDiff }}</td>
+            {% set totals_goalsdiff = totals_goalsdiff + stand.data.getGoalsDiff %}
+            <td class="text-center"><strong>{{ stand.data.getPoints }}</strong></td>
+            {% set totals_points = totals_points + stand.data.getPoints %}
+        </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>&nbsp;</td>
+            <td>{{ totals_played }}</td>
+            <td>{{ totals_wins }}</td>
+            <td>{{ totals_draws }}</td>
+            <td>{{ totals_loss }}</td>
+            <td colspan="3" class="text-center">{{ totals_goalsfor }}</td>
+            <td class="text-center">Avg:
+                {% if totals_points == 0 or totals_played == 0 %}
+                    0.00
+                {% else %}
+                    {{ (totals_points / totals_played)|round(2) }}
+                {% endif %}
+            </td>
+        </tr>
+    </tfoot>
+</table>

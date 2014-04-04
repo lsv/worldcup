@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Game
  *
- * @ORM\Table(name="game")
+ * @ORM\Table(name="game",indexes={@ORM\Index(name="stage_idx", columns={"stage_id"})})
  * @ORM\Entity(repositoryClass="Wc\GameBundle\Entity\Repository\Game")
  */
-class Game
+class Game extends Result
 {
     /**
      * @var integer
@@ -52,7 +52,7 @@ class Game
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetimetz")
      */
     private $matchdate;
 
@@ -69,6 +69,17 @@ class Game
      * @ORM\Column(type="integer", nullable=true)
      */
     private $awayresult = null;
+
+    /**
+     * @var array
+     * @ORM\Column(type="array")
+     */
+    private $rules;
+
+    public function __construct()
+    {
+        $this->rules = array();
+    }
 
 
     /**
@@ -156,7 +167,7 @@ class Game
      * @param \Wc\GameBundle\Entity\Stage $stage
      * @return Game
      */
-    public function setStage(\Wc\GameBundle\Entity\Stage $stage = null)
+    public function setStage(Stage $stage = null)
     {
         $this->stage = $stage;
 
@@ -179,7 +190,7 @@ class Game
      * @param \Wc\GameBundle\Entity\Team $hometeam
      * @return Game
      */
-    public function setHometeam(\Wc\GameBundle\Entity\Team $hometeam = null)
+    public function setHometeam(Team $hometeam = null)
     {
         $this->hometeam = $hometeam;
 
@@ -202,7 +213,7 @@ class Game
      * @param \Wc\GameBundle\Entity\Team $awayteam
      * @return Game
      */
-    public function setAwayteam(\Wc\GameBundle\Entity\Team $awayteam = null)
+    public function setAwayteam(Team $awayteam = null)
     {
         $this->awayteam = $awayteam;
 
@@ -241,4 +252,28 @@ class Game
     {
         return $this->matchid;
     }
+
+    /**
+     * Set rules
+     *
+     * @param array $rules
+     * @return Game
+     */
+    public function setRules($rules)
+    {
+        $this->rules = $rules;
+
+        return $this;
+    }
+
+    /**
+     * Get rules
+     *
+     * @return array 
+     */
+    public function getRules()
+    {
+        return $this->rules;
+    }
+
 }

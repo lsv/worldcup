@@ -2,23 +2,50 @@
 
 {% block head_style %}
     {% stylesheets
-    '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
+    '@WcGameBundle/Resources/less/app.less'
+    output="css/main.css"
     %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
     {% endstylesheets %}
 {% endblock head_style %}
 
-{% block headline %}World cup{% endblock headline %}
-
-{% block foot_script_assetic %}
+{% block head_scripts %}
     {% javascripts
+        '@MopaBootstrapBundle/Resources/public/js/modernizr-2.7.1-respond-1.4.2.min.js'
+        output="js/modernizr.js"
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock head_scripts %}
+
+{% block headline %}World cup{% endblock headline %}
+{% block foot_script %}
+
+    {#
     '@MopaBootstrapBundle/Resources/public/bootstrap/js/tooltip.js'
     '@MopaBootstrapBundle/Resources/public/bootstrap/js/*.js'
     '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
     '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+    #}
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    {% javascripts
+        '@MopaBootstrapBundle/Resources/public/bootstrap/js/tab.js'
+        '@WcGameBundle/Resources/js/*.js'
+        output="js/main.js"
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
-{% endblock foot_script_assetic %}
+    {% if google['analytics'] is defined %}
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','{{ google['analytics'] }}');ga('send','pageview');
+        </script>
+    {% endif %}
+{% endblock foot_script %}
 
 {% block footer %}{% endblock %}

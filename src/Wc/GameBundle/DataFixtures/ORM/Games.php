@@ -42,6 +42,8 @@ class Games extends Fixture
                     exit;
             }
 
+            $datetime->setTimezone(new \DateTimeZone('Europe/Copenhagen'));
+
             $m = new Game();
             $m
                 ->setStage($this->getReference('stage-' . $stage))
@@ -52,6 +54,8 @@ class Games extends Fixture
             ;
 
             $manager->persist($m);
+
+            $this->addReference('game-' . $matchid, $m);
 
         }
 
