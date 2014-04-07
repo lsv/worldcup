@@ -17,7 +17,8 @@ class Knockout extends EntityRepository
     public function getMatches()
     {
         $matches = array();
-        foreach ($this->findAll() as &$knockout) {
+        $knockouts = $this->findAll();
+        foreach ($knockouts as &$knockout) {
             /** @var Entity\Knockout $knockout */
             if ($knockout->getFromgroup()) {
                 list($number, $group) = str_split($knockout->getHometeam());
