@@ -5,7 +5,6 @@ namespace Wc\GameBundle\Entity\Repository;
 use Doctrine\ORM\EntityRepository;
 use Wc\GameBundle\Entity;
 use Wc\GameBundle\Data\TeamData;
-use Wc\GameBundle\Entity;
 
 /**
  * Stage
