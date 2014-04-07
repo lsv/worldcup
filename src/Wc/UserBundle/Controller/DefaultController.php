@@ -1,19 +1,56 @@
 <?php
-
 namespace Wc\UserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
+use Wc\UserBundle\App;
+use Wc\UserBundle\Entity;
 
-class DefaultController extends Controller
+class DefaultController extends App
 {
+
     /**
-     * @Route("/hello/{name}")
-     * @Template()
+     * @Route("/", name="wc_userbundle_default")
+     * @Method("POST")
      */
-    public function indexAction($name)
+    public function indexAction(Request $request)
     {
-        return array('name' => $name);
+        if ($this->validCsrf($request->request->get('csrf'), 'bets')) {
+            $bets = $request->request->get('bet');
+            if (is_array($bets)) {
+                foreach ($bets as $type => $bet) {
+                    foreach ($bet as $matchid => $method) {
+                        $obj = $this->getBetRepo()->findBet($type, $matchid, $this->getUser());
+                        if (! $obj instanceof Entity\Bet) {
+                            $obj = new Entity\Bet();
+                            $obj->setUser($this->getUser());
+                            if ($type == Entity\Repository\Bet::KNOCKOUT) {
+                                $mm = $this->getManager()->getRepository('WcGameBundle:Knockout')->findOneBy(array('matchid' => $matchid));
+                                $obj->setKnockout($mm);
+                            } else {
+                                $mm = $this->getManager()->getRepository('WcGameBundle:Game')->findOneBy(array('matchid' => $matchid));
+                                $obj->setGame($mm);
+                            }
+                        }
+
+                        $obj->setBet($method);
+                        $this->getManager()->persist($obj);
+                    }
+                }
+
+                $this->getManager()->flush();
+                $this->get('session')->getFlashBag()->add('success', 'Your bets are now saved');
+                return $this->redirect($this->generateUrl('wc_gamebundle_default'));
+
+            } else {
+                $this->get('session')->getFlashBag()->add('error', 'No bets added :(');
+            }
+            exit;
+        } else {
+            $this->get('session')->getFlashBag()->add('error', 'CSRF token is invalid');
+        }
     }
-}
+
+} 

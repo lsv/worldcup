@@ -2,7 +2,7 @@
 
 {% block head_style %}
     {% stylesheets
-    '@WcGameBundle/Resources/less/app.less'
+    './../app/Resources/less/app.less'
     output="css/main.css"
     %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
@@ -18,20 +18,36 @@
     {% endjavascripts %}
 {% endblock head_scripts %}
 
-{% block headline %}World cup{% endblock headline %}
-{% block foot_script %}
+{% block navbar %}
+    {% embed '@MopaBootstrap/Navbar/navbar.html.twig' with { inverse: false } %}
+        {% block menu %}
+            {% if not is_granted('ROLE_USER') %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown first last open">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in with <b class="caret"></b></a>
+                        <ul class="dropdown-menu pull-right menu_level_1" role="menu">
+                            {% render(controller('HWIOAuthBundle:Connect:connect')) %}
+                        </ul>
+                    </li>
+                </ul>
+            {% else %}
+                {{ mopa_bootstrap_menu('WcUserBundle:Builder:userMenu', {'automenu': 'navbar', 'pull-right': true}) }}
+            {% endif %}
+        {% endblock %}
+    {% endembed %}
+{% endblock navbar %}
 
-    {#
-    '@MopaBootstrapBundle/Resources/public/bootstrap/js/tooltip.js'
-    '@MopaBootstrapBundle/Resources/public/bootstrap/js/*.js'
-    '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
-    '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
-    #}
+{% block page_header %}{% endblock %}
+{% block foot_script %}
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     {% javascripts
-        '@MopaBootstrapBundle/Resources/public/bootstrap/js/tab.js'
+        '@MopaBootstrapBundle/Resources/public/bootstrap/js/tooltip.js'
+        '@MopaBootstrapBundle/Resources/public/bootstrap/js/*'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
         '@WcGameBundle/Resources/js/*.js'
+        '@WcUserBundle/Resources/js/*.js'
         output="js/main.js"
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>

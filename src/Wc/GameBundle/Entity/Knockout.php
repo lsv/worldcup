@@ -1,6 +1,7 @@
 <?php
 namespace Wc\GameBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -94,6 +95,13 @@ class Knockout extends Result
      */
     private $stage;
 
+    /**
+     * @var ArrayCollection[]>Bet
+     * @ORM\OneToMany(targetEntity="Wc\UserBundle\Entity\Bet", mappedBy="knockout")
+     */
+    protected $bets;
+
+    protected $drawIsAllowed = false;
 
     /**
      * Get id

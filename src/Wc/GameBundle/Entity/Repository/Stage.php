@@ -153,6 +153,12 @@ class Stage extends EntityRepository
                     }
                 }
 
+                if ($ateamobj->getOrder() > $bteamobj->getOrder()) {
+                    return $down;
+                } elseif ($ateamobj->getOrder() < $bteamobj->getOrder()) {
+                    return $up;
+                }
+
                 return $none;
 
             });
@@ -188,7 +194,7 @@ class Stage extends EntityRepository
                 ':awayteam2' => $a->getId()
             ))
             ->getQuery()
-            ->getArrayResult()
+            ->getResult()
         ;
 
         return $match[0];

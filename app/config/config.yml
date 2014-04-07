@@ -76,3 +76,22 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Wc\UserBundle\Entity\User
+
+hwi_oauth:
+    firewall_name: main
+    resource_owners:
+        facebook:
+            type:                facebook
+            client_id:           237696826433522
+            client_secret:       22a4c80907a4528c0931e9e89b319e44
+            scope:               basic_info,email
+        github:
+            type:                github
+            client_id:           d2994d577e4de0d862d2
+            client_secret:       c692e8a7d82a357672bf8703f6e2370c311ad8f5
+            scope:               user:email
+        reddit:
+            type:                reddit
+            client_id:           DVlgkAtns3cLBQ
+            client_secret:       yRXJ1MdFG1W7IqRWQ7fq_2_spA0
+            scope:               identity

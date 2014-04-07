@@ -50,6 +50,13 @@ class Team
      */
     private $awayteams;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="teamorder", type="integer", length=255)
+     */
+    private $order = 0;
+
     public function __construct()
     {
         $this->hometeams = new ArrayCollection();
@@ -139,7 +146,19 @@ class Team
     /**
      * Get hometeams
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collectio
+
+
+
+
+
+
+
+
+
+n
+
+
      */
     public function getHometeams()
     {
@@ -177,6 +196,28 @@ class Team
     public function getAwayteams()
     {
         return $this->awayteams;
+    }
+
+    /**
+     * Set order
+     *
+     * @param integer $order
+     * @return $this
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+        return $this;
+    }
+
+    /**
+     * Get order
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return $this->order;
     }
 
 }

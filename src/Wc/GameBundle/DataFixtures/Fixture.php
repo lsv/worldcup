@@ -54,7 +54,7 @@ abstract class Fixture extends AbstractFixture implements OrderedFixtureInterfac
         'Honduras' => array('iso2' => 'hn'),
         // F
         'Argentina' => array('iso2' => 'ar'),
-        'Bosnia and Herzegovina' => array('iso2' => 'ba'),
+        'Bosnia & Herze.' => array('iso2' => 'ba'),
         'Iran' => array('iso2' => 'ir'),
         'Nigeria' => array('iso2' => 'ng'),
         // G
@@ -116,12 +116,12 @@ CSV;
 CSV;
 
         $this->matches['group_f'] = <<<CSV
-11	16/06 00:00	Rio De Janeiro		Argentina	-	Bosnia and Herzegovina
+11	16/06 00:00	Rio De Janeiro		Argentina	-	Bosnia & Herze.
 12	16/06 21:00	Curitiba		Iran	-	Nigeria
 27	21/06 18:00	Belo Horizonte		Argentina	-	Iran
-28	22/06 00:00	Cuiaba		Nigeria	-	Bosnia and Herzegovina
+28	22/06 00:00	Cuiaba		Nigeria	-	Bosnia & Herze.
 43	25/06 18:00	Porto Alegre		Nigeria	-	Argentina
-44	25/06 18:00	Salvador		Bosnia and Herzegovina	-	Iran
+44	25/06 18:00	Salvador		Bosnia & Herze.	-	Iran
 CSV;
 
         $this->matches['group_g'] = <<<CSV

@@ -1,0 +1,13 @@
+{% block hwi_oauth_content %}
+    {% if error is defined and error %}
+        <span>{{ error }}</span>
+    {% endif %}
+    {% for owner in hwi_oauth_resource_owners() %}
+        {% set class = '' %}
+        {% if loop.first %}{% set class = 'first' %}{% endif %}
+        {% if loop.last %}{% set class = 'last' %}{% endif %}
+        <li class="{{ class }}">
+            <a href="{{ hwi_oauth_login_url(owner) }}">{{ owner | trans({}, 'HWIOAuthBundle') }}</a>
+        </li>
+    {% endfor %}
+{% endblock hwi_oauth_content %}
