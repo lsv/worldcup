@@ -5,7 +5,7 @@ namespace Wc\GameBundle\Entity\Repository;
 use Doctrine\ORM\EntityRepository;
 use Wc\GameBundle\Entity;
 use Wc\GameBundle\Data\TeamData;
-use Wc\GameBundle\Entity\Team;
+use Wc\GameBundle\Entity;
 
 /**
  * Stage
@@ -100,9 +100,9 @@ class Stage extends EntityRepository
                 /** @var TeamData $b */
                 $b = $bteam['data'];
 
-                /** @var Team $ateamobj */
+                /** @var Entity\Team $ateamobj */
                 $ateamobj = $ateam['team'];
-                /** @var Team $bteamobj */
+                /** @var Entity\Team $bteamobj */
                 $bteamobj = $bteam['team'];
 
                 if ($a->getPlayed() === 0 && $b->getPlayed() === 0) {
@@ -176,13 +176,13 @@ class Stage extends EntityRepository
     }
 
     /**
-     * @param Team $a
-     * @param Team $b
+     * @param Entity\Team $a
+     * @param Entity\Team $b
      * @return Game
      * @throws \Doctrine\ORM\ORMException
      * @throws \InvalidArgumentException
      */
-    private function findMatch(Team $a, Team $b)
+    private function findMatch(Entity\Team $a, Entity\Team $b)
     {
         $match = $this->getEntityManager()->getRepository('WcGameBundle:Game')->createQueryBuilder('g')
             ->andWhere('g.hometeam = :hometeam1 AND g.awayteam = :awayteam1')
