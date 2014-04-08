@@ -7,6 +7,10 @@
         {
             "type": "vcs",
             "url": "git@github.com:lsv/HWIOAuthBundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:lsv/MopaBootstrapBundle.git"
         }
     ],
     "require": {
@@ -22,7 +26,7 @@
         "sensio/framework-extra-bundle": "~3.0",
         "sensio/generator-bundle": "~2.3",
         "incenteev/composer-parameter-handler": "~2.0",
-        "mopa/bootstrap-bundle": "dev-master",
+        "mopa/bootstrap-bundle": "dev-session-flash-closeable",
         "twbs/bootstrap": "dev-master",
         "knplabs/knp-paginator-bundle": "dev-master",
         "knplabs/knp-menu-bundle": "dev-master",

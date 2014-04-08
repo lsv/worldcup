@@ -46,6 +46,7 @@ class DefaultController extends App
             $timezone = $request->request->get('timezone');
             if ($timezone) {
                 $this->get('session')->set('timezone', $timezone);
+                $this->get('session')->getFlashBag()->add('info', 'Timezone changed');
             }
         }
 
