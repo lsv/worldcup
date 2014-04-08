@@ -3,6 +3,7 @@
 {% block head_style %}
     {% stylesheets
     './../app/Resources/less/app.less'
+    filter="?lessphp"
     output="css/main.css"
     %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
@@ -12,6 +13,7 @@
 {% block head_scripts %}
     {% javascripts
         '@MopaBootstrapBundle/Resources/public/js/modernizr-2.7.1-respond-1.4.2.min.js'
+        filter="?uglifyjs2"
         output="js/modernizr.js"
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -70,6 +72,7 @@
         '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
         '@WcGameBundle/Resources/js/*.js'
         '@WcUserBundle/Resources/js/*.js'
+        filter="?uglifyjs2"
         output="js/main.js"
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>

@@ -1,0 +1,6 @@
+{
+    "name": "lsv-worldcup",
+    "dependencies": {
+        "uglify-js": "*"
+    }
+}

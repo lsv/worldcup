@@ -1,4 +1,5 @@
 #!/bin/bash
+npm install
 php app/console cache:clear --env=dev
 rm web/js/*
 rm web/css/*

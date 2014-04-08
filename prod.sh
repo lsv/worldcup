@@ -1,6 +1,6 @@
 #!/bin/bash
 git pull
-#npm install
+npm install
 chmod 777 -R app/cache
 chmod 777 -R app/logs
 php composer.phar install
