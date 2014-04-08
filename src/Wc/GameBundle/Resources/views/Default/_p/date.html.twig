@@ -1,0 +1,7 @@
+<time datetime="{{ date|date('c') }}">
+{% if small is defined %}
+    {{ date|date('m/d', timezone) }}<br/>{{ date|date('h:i', timezone) }}
+{% else %}
+    {{ date|date('m/d H:i', timezone) }}
+{% endif %}
+</time>

@@ -57,6 +57,13 @@ class Bet
     private $bet;
 
     /**
+     * @var null|boolean
+     *
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $correct = null;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -90,10 +97,8 @@ class Bet
     }
 
     /**
-     * Add user
-     *
-     * @param \Wc\UserBundle\Entity\User $users
-     * @return Bet
+     * @param User $user
+     * @return $this
      */
     public function setUser(User $user)
     {
@@ -154,5 +159,23 @@ class Bet
     public function getKnockout()
     {
         return $this->knockout;
+    }
+
+    /**
+     * @param boolean $correct
+     * @return $this
+     */
+    public function setCorrect($correct)
+    {
+        $this->correct = (bool)$correct;
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCorrect()
+    {
+        return $this->correct;
     }
 }

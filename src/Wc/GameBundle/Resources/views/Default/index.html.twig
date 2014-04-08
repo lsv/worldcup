@@ -1,9 +1,27 @@
 {% extends '::base.html.twig' %}
 {% block content %}
-    <ul class="nav nav-pills nav-justified">
-        <li class="active"><a href="#groupstage" data-toggle="tab">Groups</a></li>
-        <li><a href="#knockout" data-toggle="tab">Knouckout</a></li>
-    </ul>
+    <div class="row">
+        <div class="col-xs-12 col-sm-9">
+            <ul class="nav nav-pills">
+                <li class="active"><a href="#groupstage" data-toggle="tab">Groups</a></li>
+                <li><a href="#knockout" data-toggle="tab">Knouckout</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+            <form action="{{ path('wc_userbundle_changetimezone') }}" method="post">
+                <input type="hidden" name="csrf" value="{{ csrf_token('timezone') }}">
+                <select style="width:100%;line-height: 200%;" name="timezone" onchange="this.form.submit()">
+                    {% for group,groups in timezones %}
+                        <optgroup label="{{ group }}">
+                            {% for key,val in groups %}
+                                <option value="{{ key }}" {% if key == timezone %}selected="selected"{% endif %}>{{ key }}</option>
+                            {% endfor %}
+                        </optgroup>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+    </div>
 
     {% if is_granted('ROLE_USER') %}
     <form action="{{ path('wc_userbundle_default') }}" method="post">

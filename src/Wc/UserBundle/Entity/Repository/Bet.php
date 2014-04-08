@@ -51,16 +51,49 @@ class Bet extends EntityRepository
                 if ($bet->getKnockout() === null) {
                     continue;
                 } elseif ($bet->getKnockout()->getMatchid() == $matchid) {
-                    return $bet;
+                    if (! $bet->getKnockout()->getIsStarted()) {
+                        return $bet;
+                    } else {
+                        return false;
+                    }
                 }
             } else {
                 if ($bet->getGame() !== null && $bet->getGame()->getMatchid() == $matchid) {
-                    return $bet;
+                    if (! $bet->getGame()->getIsStarted()) {
+                        return $bet;
+                    } else {
+                        return false;
+                    }
                 }
             }
         }
 
         return null;
+
+    }
+
+    public function setCorrect()
+    {
+        $bets = $this->findBy(array('correct' => null));
+        foreach ($bets as $bet) {
+            /** @var Entity\Bet $bet */
+            if ($bet->getGame() !== null) {
+                $game = $bet->getGame();
+            } else {
+                $game = $bet->getKnockout();
+            }
+            if ($game->getIsFinish()) {
+                $bet->setCorrect($game->getWinnerByBet($bet->getBet()));
+                $this->getEntityManager()->persist($bet);
+            }
+        }
+
+        $this->getEntityManager()->flush();
+
+    }
+
+    public function getToplist($type)
+    {
 
     }
 

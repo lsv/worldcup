@@ -105,37 +105,27 @@ class Stage extends EntityRepository
                 $bteamobj = $bteam['team'];
 
                 if ($a->getPlayed() === 0 && $b->getPlayed() === 0) {
-                    return $none;
+                    return strcmp($ateamobj->getName(), $bteamobj->getName());
                 }
 
-                // Rule A
-                if ($a->getPoints() < $b->getPoints()) {
-                    return $up;
+                $rules = array(
+                    'Points', // A
+                    'GoalsDiff', // B
+                    'GoalsFor' // C
+                );
+
+                foreach ($rules as $rule) {
+                    $rule = 'get' . $rule;
+                    if ($a->$rule() < $b->$rule()) {
+                        return $up;
+                    }
+
+                    if ($b->$rule() < $a->$rule()) {
+                        return $down;
+                    }
                 }
 
-                if ($b->getPoints() < $a->getPoints()) {
-                    return $down;
-                }
-
-                // Rule B
-                if ($a->getGoalsDiff() < $b->getGoalsDiff()) {
-                    return $up;
-                }
-
-                if ($b->getGoalsDiff() < $a->getGoalsDiff()) {
-                    return $down;
-                }
-
-                // Rule C
-                if ($a->getGoalsFor() < $b->getGoalsFor()) {
-                    return $up;
-                }
-
-                if ($b->getGoalsFor() < $a->getGoalsFor()) {
-                    return $down;
-                }
-
-                // Rule D+E+F
+                // Rule D+E
                 /** @var Entity\Game $game */
                 $game = $this->findMatch($ateamobj, $bteamobj);
                 if ($game->getHometeam()->getId() == $ateamobj->getId()) {
@@ -152,13 +142,14 @@ class Stage extends EntityRepository
                     }
                 }
 
+                // Rule F
                 if ($ateamobj->getOrder() > $bteamobj->getOrder()) {
                     return $down;
                 } elseif ($ateamobj->getOrder() < $bteamobj->getOrder()) {
                     return $up;
                 }
 
-                return $none;
+                return strcmp($ateamobj->getName(), $bteamobj->getName());
 
             });
 
@@ -167,7 +158,6 @@ class Stage extends EntityRepository
                 'stage' => $stage,
                 'standings' => $teams
             );
-
         }
 
         return $groups;

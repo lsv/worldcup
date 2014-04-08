@@ -13,7 +13,7 @@
 {% for game in games %}
     <tr>
         <td><small class="text-muted">{{ game.matchid }}</small></td>
-        <td><small class="text-muted">{{ game.matchdate|date('m/d H:i') }}</small></td>
+        <td><small class="text-muted">{% include 'WcGameBundle:Default/_p:date.html.twig' with {"date": game.matchdate} %}</small></td>
         <td class="{{ game.getHomeStateClass }} col-xs-4 text-right">
             <label class="betlabel" for="bet_{{ game.matchid }}_home">{% include 'WcGameBundle:Default/_p:team.html.twig' with {'team': game.hometeam, 'right':true} %}</label>
             {% include 'WcGameBundle:Default/_p:matchbet.html.twig' with {'game': game, 'team': 'home', 'type': 'stage' } %}

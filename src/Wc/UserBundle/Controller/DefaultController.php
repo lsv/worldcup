@@ -23,7 +23,7 @@ class DefaultController extends App
                 foreach ($bets as $type => $bet) {
                     foreach ($bet as $matchid => $method) {
                         $obj = $this->getBetRepo()->findBet($type, $matchid, $this->getUser());
-                        if (! $obj instanceof Entity\Bet) {
+                        if ($obj === null) {
                             $obj = new Entity\Bet();
                             $obj->setUser($this->getUser());
                             if ($type == Entity\Repository\Bet::KNOCKOUT) {
@@ -33,6 +33,9 @@ class DefaultController extends App
                                 $mm = $this->getManager()->getRepository('WcGameBundle:Game')->findOneBy(array('matchid' => $matchid));
                                 $obj->setGame($mm);
                             }
+                        } elseif ($obj === false) {
+                            $this->get('session')->getFlashBag()->add('info', 'Match is already started, bet could not be saved');
+                            continue;
                         }
 
                         $obj->setBet($method);
@@ -42,15 +45,16 @@ class DefaultController extends App
 
                 $this->getManager()->flush();
                 $this->get('session')->getFlashBag()->add('success', 'Your bets are now saved');
-                return $this->redirect($this->generateUrl('wc_gamebundle_default'));
 
             } else {
                 $this->get('session')->getFlashBag()->add('error', 'No bets added :(');
             }
-            exit;
         } else {
             $this->get('session')->getFlashBag()->add('error', 'CSRF token is invalid');
         }
+
+        return $this->redirect($this->generateUrl('wc_gamebundle_default'));
+
     }
 
 } 
