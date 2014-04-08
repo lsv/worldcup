@@ -14,11 +14,25 @@
     <tr>
         <td><small class="text-muted">{{ game.matchid }}</small></td>
         <td><small class="text-muted">{{ game.matchdate|date('m/d H:i') }}</small></td>
-        <td class="{{ game.getHomeStateClass }} col-xs-4 text-right">{% include 'WcGameBundle:Default/_p:team.html.twig' with {'team': game.hometeam, 'right':true} %}</td>
+        <td class="{{ game.getHomeStateClass }} col-xs-4 text-right">
+            <label class="betlabel" for="bet_{{ game.matchid }}_home">{% include 'WcGameBundle:Default/_p:team.html.twig' with {'team': game.hometeam, 'right':true} %}</label>
+            {% include 'WcGameBundle:Default/_p:matchbet.html.twig' with {'game': game, 'team': 'home', 'type': 'stage' } %}
+        </td>
         <td class="{{ game.getHomeStateClass }} text-right">{{ game.homeresult|default("") }}</td>
-        <td style="width:10px;"> - </td>
+        <td class="text-center" style="width:10px;">
+            {% if is_granted('ROLE_USER') %}
+                {% include 'WcGameBundle:Default/_p:matchbet.html.twig' with {'game': game, 'team': 'draw', 'type': 'stage' } %}
+            {% else %}
+                <label class="betlabel" for="bet_{{ game.matchid }}_draw">-</label>
+            {% endif %}
+        </td>
         <td class="{{ game.getAwayStateClass }}">{{ game.awayresult|default("") }}</td>
-        <td class="{{ game.getAwayStateClass }} col-xs-4">{% include 'WcGameBundle:Default:_p/team.html.twig' with {'team': game.awayteam} %}</td>
+        <td class="{{ game.getAwayStateClass }} col-xs-4">
+            {% include 'WcGameBundle:Default/_p:matchbet.html.twig' with {'game': game, 'team': 'away', 'type': 'stage' } %}
+            <label class="betlabel" for="bet_{{ game.matchid }}_away">
+                {% include 'WcGameBundle:Default:_p/team.html.twig' with {'team': game.awayteam} %}
+            </label>
+        </td>
     </tr>
 {% endfor %}
 </table>

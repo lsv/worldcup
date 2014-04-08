@@ -5,12 +5,23 @@
         <li><a href="#knockout" data-toggle="tab">Knouckout</a></li>
     </ul>
 
-    <div class="tab-content">
-        <div class="tab-pane active" id="groupstage">
-            {% include 'WcGameBundle:Default/_p:groupstage.html.twig' with {'stages': stages} %}
+    {% if is_granted('ROLE_USER') %}
+    <form action="{{ path('wc_userbundle_default') }}" method="post">
+        <input type="hidden" name="csrf" value="{{ csrf_token('bets') }}" />
+        <div style="margin-top:20px;">
+            <button type="submit" class="btn btn-success btn-lg">Set bets</button>
         </div>
-        <div class="tab-pane" id="knockout">
-            {% include 'WcGameBundle:Default/_p:knockout.html.twig' with {'stages': knockouts} %}
+    {% endif %}
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="groupstage">
+                {% include 'WcGameBundle:Default/_p:groupstage.html.twig' with {'stages': stages} %}
+            </div>
+            <div class="tab-pane" id="knockout">
+                {% include 'WcGameBundle:Default/_p:knockout.html.twig' with {'stages': knockouts} %}
+            </div>
         </div>
-    </div>
+    {% if is_granted('ROLE_USER') %}
+        </form>
+    {% endif %}
 {% endblock %}

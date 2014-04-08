@@ -2,7 +2,9 @@
 
 namespace Wc\GameBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Wc\UserBundle\Entity as UserEntity;
 
 /**
  * Game
@@ -71,16 +73,12 @@ class Game extends Result
     private $awayresult = null;
 
     /**
-     * @var array
-     * @ORM\Column(type="array")
+     * @var ArrayCollection[]>Bet
+     * @ORM\OneToMany(targetEntity="Wc\UserBundle\Entity\Bet", mappedBy="game")
      */
-    private $rules;
+    protected $bets;
 
-    public function __construct()
-    {
-        $this->rules = array();
-    }
-
+    protected $drawIsAllowed = true;
 
     /**
      * Get id
@@ -251,29 +249,6 @@ class Game extends Result
     public function getMatchid()
     {
         return $this->matchid;
-    }
-
-    /**
-     * Set rules
-     *
-     * @param array $rules
-     * @return Game
-     */
-    public function setRules($rules)
-    {
-        $this->rules = $rules;
-
-        return $this;
-    }
-
-    /**
-     * Get rules
-     *
-     * @return array 
-     */
-    public function getRules()
-    {
-        return $this->rules;
     }
 
 }

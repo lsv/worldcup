@@ -3,6 +3,12 @@
     "autoload": {
         "psr-0": { "": "src/" }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:lsv/HWIOAuthBundle.git"
+        }
+    ],
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "~2.4",
@@ -26,7 +32,8 @@
         "oyejorge/less.php": "1.*",
         "atelierspierrot/famfamfam-flags-sprite": "1.*",
         "doctrine/doctrine-fixtures-bundle": "2.*",
-        "fzaninotto/faker": "1.*"
+        "fzaninotto/faker": "1.*",
+        "hwi/oauth-bundle": "dev-entities"
     },
     "scripts": {
         "post-install-cmd": [

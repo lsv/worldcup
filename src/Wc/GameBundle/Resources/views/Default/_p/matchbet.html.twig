@@ -1,0 +1,13 @@
+{% if is_granted('ROLE_USER') %}
+    {% if decided is not defined or (decided is defined and decided) %}
+        <input
+            {% if bets[game.matchid] is defined and bets[game.matchid] == team %}checked="checked"{% endif %}
+            {% if game.isStarted %}disabled="disabled"{% endif %}
+            class="bets"
+            type="radio"
+            id="bet_{{ game.matchid }}_{{ team }}"
+            name="bet[{{ type }}][{{ game.matchid }}]"
+            value="{{ team }}"
+        />
+    {% endif %}
+{% endif %}

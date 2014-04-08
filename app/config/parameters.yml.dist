@@ -13,3 +13,15 @@ parameters:
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    facebook_id:
+    facebook_secret:
+    facebook_scope:     basic_info,email
+
+    github_id:
+    github_secret:
+    github_scope:       user:email
+
+    reddit_id:
+    reddit_secret:
+    reddit_scope:       identity

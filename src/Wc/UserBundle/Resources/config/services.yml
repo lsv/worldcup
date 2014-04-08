@@ -1,0 +1,4 @@
+services:
+    my_user_provider:
+        class: Wc\UserBundle\Security\Provider\User
+        arguments: [@fos_user.user_manager,{facebook: facebook_id, github: github_id, reddit: reddit_id}]
