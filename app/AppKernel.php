@@ -25,6 +25,8 @@ class AppKernel extends Kernel
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new Wc\GameBundle\WcGameBundle(),
             new Wc\UserBundle\WcUserBundle(),
+            new Bmatzner\FontAwesomeBundle\BmatznerFontAwesomeBundle(),
+            new Wc\ScoreBundle\WcScoreBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

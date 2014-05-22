@@ -13,16 +13,17 @@ class DefaultController extends App
      * @Route("/", name="wc_gamebundle_default")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $timezone = 'Europe/Copenhagen';
+
         $locations = array();
         $zones = timezone_identifiers_list();
         foreach ($zones as $zone) {
-            $zone = explode('/', $zone); // 0 => Continent, 1 => City
-            // Only use "friendly" continent names
+            $zone = explode('/', $zone);
             if ($zone[0] == 'Africa' || $zone[0] == 'America' || $zone[0] == 'Antarctica' || $zone[0] == 'Arctic' || $zone[0] == 'Asia' || $zone[0] == 'Atlantic' || $zone[0] == 'Australia' || $zone[0] == 'Europe' || $zone[0] == 'Indian' || $zone[0] == 'Pacific') {
                 if (isset($zone[1]) != '') {
-                    $locations[$zone[0]][$zone[0]. '/' . $zone[1]] = str_replace('_', ' ', $zone[1]); // Creates array(DateTimeZone => 'Friendly name')
+                    $locations[$zone[0]][$zone[0]. '/' . $zone[1]] = str_replace('_', ' ', $zone[1]);
                 }
             }
         }
@@ -31,7 +32,7 @@ class DefaultController extends App
             'stages' => $this->getStageRepo()->getGroups(),
             'knockouts' => $this->getKnockoutRepo()->getMatches(),
             'bets' => $this->getDoctrine()->getRepository('WcUserBundle:Bet')->getBets($this->getUser()),
-            'timezone' => $this->get('session')->get('timezone', 'Europe/Copenhagen'),
+            'timezone' => $this->get('session')->get('timezone', $timezone),
             'timezones' => $locations
         );
     }

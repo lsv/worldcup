@@ -1,10 +1,18 @@
 {% extends 'MopaBootstrapBundle::base_initializr.html.twig' %}
 
+{% block container_class %}container-fluid{% endblock %}
+
 {% block head_style %}
     {% stylesheets
     './../app/Resources/less/app.less'
     filter="?lessphp"
     output="css/main.css"
+    %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+    {% stylesheets
+    '@BmatznerFontAwesomeBundle/Resources/public/css/font-awesome.min.css'
+    output="css/fa.css"
     %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
     {% endstylesheets %}
@@ -38,9 +46,10 @@
 {% endblock head_scripts %}
 
 {% block navbar %}
-    {% embed '@MopaBootstrap/Navbar/navbar.html.twig' with { inverse: true } %}
-        {% block brand %}<span class="navbar-brand">Bet for fun!</span>{% endblock %}
+    {% embed '::navbar.html.twig' %}
+        {% block brand %}{% endblock %}
         {% block menu %}
+            {{ mopa_bootstrap_menu('WcUserBundle:Builder:indexMenu', {'automenu': 'navbar'}) }}
             {% if not is_granted('ROLE_USER') %}
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown first last">
@@ -71,7 +80,8 @@
         '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
         '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
         '@WcGameBundle/Resources/js/*.js'
-        '@WcUserBundle/Resources/js/*.js'
+        '@WcUserBundle/Resources/js/bootstrap_slider.js'
+        '@WcUserBundle/Resources/js/bets.js'
         filter="?uglifyjs2"
         output="js/main.js"
     %}
@@ -95,3 +105,7 @@
 {% endblock foot_script %}
 
 {% block footer %}{% endblock %}
+
+{% block body_end_before_js %}
+    <footer></footer>
+{% endblock %}

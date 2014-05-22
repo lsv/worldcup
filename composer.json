@@ -37,7 +37,8 @@
         "atelierspierrot/famfamfam-flags-sprite": "1.*",
         "doctrine/doctrine-fixtures-bundle": "2.*",
         "fzaninotto/faker": "1.*",
-        "hwi/oauth-bundle": "dev-entities"
+        "hwi/oauth-bundle": "dev-entities",
+        "bmatzner/fontawesome-bundle": "4.*"
     },
     "scripts": {
         "post-install-cmd": [

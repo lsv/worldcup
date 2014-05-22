@@ -1,0 +1,10 @@
+{% extends '::base.html.twig' %}
+{% block content %}
+    <div class="row">
+        {% include 'WcScoreBundle:Top/_partial:aside.html.twig' with {'active': 'top_spend'} %}
+        <div class="col-sm-9">
+            <h2>Top spenders!</h2>
+            {% include 'WcScoreBundle:Top/_partial:table.html.twig' with {'column': 'Point spended', 'field': 'num'} %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,3 +1,8 @@
+wc_score:
+    resource: "@WcScoreBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 wc_game:
     resource: "@WcGameBundle/Controller/"
     type:     annotation

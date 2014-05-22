@@ -1,0 +1,30 @@
+{% if list|length > 0 %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Position</th>
+                <th>User</th>
+                <th>{{ column }}</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td colspan="3" style="text-align: center">{{ knp_pagination_render(list) }}</td>
+            </tr>
+        </tfoot>
+        <tbody>
+            {% set pos = ((page - 1) * prpage) + 1 %}
+            {% for u in list %}
+                <tr>
+                    <td>{{ pos }}</td>
+                    {% set user = u[0] %}
+                    <td>{{ user.user.username }} @ {{ user.user.type }}</td>
+                    <td>{{ u[field] }}</td>
+                </tr>
+                {% set pos = (pos+1) %}
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>We are still awaiting some results...</p>
+{% endif %}

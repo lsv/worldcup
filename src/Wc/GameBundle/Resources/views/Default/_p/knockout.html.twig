@@ -1,7 +1,7 @@
 <div class="bracket row">
 {% for stage in stages %}
     {% set ii = loop.index %}
-    <div class="bracket-column col-md-6 col-lg-3">
+    <div class="bracket-column col-xs-12 col-md-3">
         <div class="bracket-header">{{ stage.data.name }}</div>
         {% for m in stage.matches %}
             {% set decided = false %}
@@ -22,7 +22,7 @@
                         {% include 'WcGameBundle:Default/_p:date.html.twig' with {"date": m.matchdate, "small": true} %}
                     </div>
                     <div class="bracket-player-top {{ m.getHomeStateClass }}">
-                        {% include 'WcGameBundle:Default/_p:matchbet.html.twig' with {'game': m, 'team': 'home', 'type': 'knockout', 'decided': decided } %}
+                        {% include 'WcGameBundle:Default/_p:matchbet.html.twig' with {'game': m, 'team': 'home', 'type': 'knockout', 'decided': decided, 'stage': stage.data.name } %}
                         <label class="betlabel" for="bet_{{ m.matchid }}_home">{{ ht }}</label>
                         <div class="bracket-score">
                             {{ m.homeresult|default("") }}
@@ -35,7 +35,7 @@
 
                 <div class="bracket-cell-r{{ ii }}">
                     <div class="bracket-player-bottom {{ m.getAwayStateClass }}">
-                        {% include 'WcGameBundle:Default/_p:matchbet.html.twig' with {'game': m, 'team': 'away', 'type': 'knockout', 'decided': decided } %}
+                        {% include 'WcGameBundle:Default/_p:matchbet.html.twig' with {'game': m, 'team': 'away', 'type': 'knockout', 'decided': decided, 'stage': stage.data.name } %}
                         <label class="betlabel" for="bet_{{ m.matchid }}_away">{{ at }}</label>
                         <div class="bracket-score">
                             {{ m.awayresult|default("") }}
@@ -47,6 +47,7 @@
                 </div>
 
             </div>
+            {% include 'WcGameBundle:Default/_p:matchbetpoint.html.twig' with {'game': m} %}
 
 
         {% endfor %}

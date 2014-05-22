@@ -31,10 +31,16 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @var ArrayCollection[]>Bet
-     * @ORM\ManyToMany(targetEntity="Bet", mappedBy="users")
+     * @var integer
+     * @ORM\Column(type="integer")
      */
-    protected $bets;
+    private $points = 0;
+
+    /**
+     * @var ArrayCollection[]>Bet
+     * @ORM\OneToMany(targetEntity="Bet", mappedBy="user")
+     */
+    private $bets;
 
     public function __construct()
     {
@@ -50,6 +56,24 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+    
+    public function getType()
+    {
+        if ($this->getFacebookId()) {
+            return 'Facebook';
+        }
+        
+        if ($this->getReditId()) {
+            return 'Reddit';
+        }
+        
+        if ($this->getGithubId()) {
+            return 'Github';
+        }
+        
+        return 'Unknown';
+        
     }
 
     /**
@@ -83,5 +107,23 @@ class User extends BaseUser
     public function getBets()
     {
         return $this->bets;
+    }
+
+    /**
+     * @param integer $points
+     * @return $this
+     */
+    public function setPoints($points)
+    {
+        $this->points = $points;
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getPoints()
+    {
+        return $this->points;
     }
 }

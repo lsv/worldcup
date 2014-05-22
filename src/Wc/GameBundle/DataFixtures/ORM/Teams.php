@@ -26,7 +26,7 @@ class Teams extends Fixture
 
     public function getOrder()
     {
-        return 1;
+        return 11;
     }
 
 } 

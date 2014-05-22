@@ -6,6 +6,23 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 
 class Builder extends ContainerAware
 {
+    
+    public function indexMenu(FactoryInterface $interface, array $options)
+    {
+        $menu = $interface->createItem('root', array(
+            'navbar' => true
+        ));
+        
+        $menu->addChild('Bet for fun!', array(
+            'route' => 'wc_gamebundle_default'
+        ));
+        
+        $menu->addChild('Top lists', array(
+            'route' => 'top_bets'
+        ));
+        
+        return $menu;
+    }
 
     public function userMenu(FactoryInterface $interface, array $options)
     {
@@ -20,7 +37,7 @@ class Builder extends ContainerAware
             ));
 
             $dropdown->addChild('Logout', array(
-                'icon' => 'eject',
+                'icon' => 'eject fa-3',
                 'route' => 'fos_user_security_logout'
             ));
 

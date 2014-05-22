@@ -27,7 +27,7 @@ class Stages extends Fixture
 
     public function getOrder()
     {
-        return 2;
+        return 12;
     }
 
 } 

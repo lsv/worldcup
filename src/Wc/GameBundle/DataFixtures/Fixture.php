@@ -144,6 +144,11 @@ CSV;
 
 
     }
+    
+    protected function getNumberofUsers()
+    {
+        return 250;
+    }
 
     protected function getFaker()
     {

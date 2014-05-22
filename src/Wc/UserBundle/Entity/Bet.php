@@ -12,7 +12,7 @@ use Wc\GameBundle\Entity as GameEntity;
  * @ORM\Table(name="bet")
  * @ORM\Entity(repositoryClass="Wc\UserBundle\Entity\Repository\Bet")
  */
-class Bet
+class Bet implements \ArrayAccess
 {
     const HOMEBET = 'home';
     const AWAYBET = 'away';
@@ -41,6 +41,13 @@ class Bet
      * @ORM\JoinColumn(name="game_id", referencedColumnName="id", nullable=true)
      */
     private $game = null;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $points = 0;
 
     /**
      * @var GameEntity\Knockout
@@ -178,4 +185,46 @@ class Bet
     {
         return $this->correct;
     }
+
+    /**
+     * @param integer $points
+     * @return $this
+     */
+    public function setPoints($points)
+    {
+        $this->points = $points;
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getPoints()
+    {
+        return $this->points;
+    }
+    
+    public function offsetSet($offset, $value) {}
+    public function offsetUnset($offset) {}
+    
+    public function offsetExists($offset)
+    {
+        $method = 'get' . ucfirst($offset);
+        if (method_exists($this, $method)) {
+            return true;
+        }
+        return false;
+    }
+    
+    public function offsetGet($offset)
+    {
+        if ($this->offsetExists($offset)) {
+            $method = 'get' . ucfirst($offset);
+            return $this->{$method}();
+        }
+        
+        return null;
+        
+    }
+    
 }

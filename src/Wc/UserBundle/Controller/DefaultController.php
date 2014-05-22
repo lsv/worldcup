@@ -17,40 +17,16 @@ class DefaultController extends App
      */
     public function indexAction(Request $request)
     {
+        $flashbag = $this->get('session')->getFlashBag();
         if ($this->validCsrf($request->request->get('csrf'), 'bets')) {
             $bets = $request->request->get('bet');
             if (is_array($bets)) {
-                foreach ($bets as $type => $bet) {
-                    foreach ($bet as $matchid => $method) {
-                        $obj = $this->getBetRepo()->findBet($type, $matchid, $this->getUser());
-                        if ($obj === null) {
-                            $obj = new Entity\Bet();
-                            $obj->setUser($this->getUser());
-                            if ($type == Entity\Repository\Bet::KNOCKOUT) {
-                                $mm = $this->getManager()->getRepository('WcGameBundle:Knockout')->findOneBy(array('matchid' => $matchid));
-                                $obj->setKnockout($mm);
-                            } else {
-                                $mm = $this->getManager()->getRepository('WcGameBundle:Game')->findOneBy(array('matchid' => $matchid));
-                                $obj->setGame($mm);
-                            }
-                        } elseif ($obj === false) {
-                            $this->get('session')->getFlashBag()->add('info', 'Match is already started, bet could not be saved');
-                            continue;
-                        }
-
-                        $obj->setBet($method);
-                        $this->getManager()->persist($obj);
-                    }
-                }
-
-                $this->getManager()->flush();
-                $this->get('session')->getFlashBag()->add('success', 'Your bets are now saved');
-
+                $this->getBetRepo()->setBets($this->getUser(), $bets, $flashbag);
             } else {
-                $this->get('session')->getFlashBag()->add('error', 'No bets added :(');
+                $flashbag->add('error', 'No bets added :(');
             }
         } else {
-            $this->get('session')->getFlashBag()->add('error', 'CSRF token is invalid');
+            $flashbag->add('error', 'CSRF token is invalid');
         }
 
         return $this->redirect($this->generateUrl('wc_gamebundle_default'));

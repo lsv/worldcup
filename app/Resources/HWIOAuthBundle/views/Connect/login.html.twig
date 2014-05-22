@@ -6,8 +6,20 @@
         {% set class = '' %}
         {% if loop.first %}{% set class = 'first' %}{% endif %}
         {% if loop.last %}{% set class = 'last' %}{% endif %}
+        
+        {% set logo = '' %}
+        {% if owner == 'facebook' %}
+            {% set logo = 'fa fa-facebook-square fa-3' %}
+        {% endif %}
+        {% if owner == 'reddit' %}
+            {% set logo = 'fa fa-reddit-square fa-3' %}
+        {% endif %}
+        {% if owner == 'github' %}
+            {% set logo = 'fa fa-github-square fa-3' %}
+        {% endif %}
+        
         <li class="{{ class }}">
-            <a href="{{ hwi_oauth_login_url(owner) }}">{{ owner | trans({}, 'HWIOAuthBundle') }}</a>
+            <a href="{{ hwi_oauth_login_url(owner) }}"><i class="{{ logo }}"></i> {{ owner | trans({}, 'HWIOAuthBundle') }}</a>
         </li>
     {% endfor %}
 {% endblock hwi_oauth_content %}

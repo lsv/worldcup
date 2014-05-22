@@ -19,7 +19,7 @@ class Knockout extends Fixture
 
     public function getOrder()
     {
-        return 5;
+        return 15;
     }
 
     private function roundWinner2(ObjectManager $manager)
