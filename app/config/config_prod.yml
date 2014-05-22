@@ -5,11 +5,11 @@ framework:
     validation:
         cache: memcache
 
-doctrine:
-    orm:
-        metadata_cache_driver: memcache
-        result_cache_driver: memcache
-        query_cache_driver: memcache
+#doctrine:
+#    orm:
+#        metadata_cache_driver: memcache
+#        result_cache_driver: memcache
+#        query_cache_driver: memcache
 
 monolog:
     handlers:
