@@ -47,7 +47,7 @@
 
 {% block navbar %}
     {% embed '::navbar.html.twig' with { fixedTop: true, staticTop: false, inverse: true } %}
-        {% block brand %}Bet for fun !{% endblock %}
+        {% block brand %}{% endblock %}
         {% block menu %}
             {{ mopa_bootstrap_menu('WcUserBundle:Builder:indexMenu', {'automenu': 'navbar'}) }}
             {% if not is_granted('ROLE_USER') %}
