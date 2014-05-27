@@ -21,6 +21,10 @@ class Builder extends ContainerAware
             'route' => 'top_bets'
         ));
         
+        $menu->addChild('Rules of engangement', array(
+            'route' => 'wc_gamebundle_rules'
+        ));
+        
         return $menu;
     }
 

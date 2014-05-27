@@ -1,0 +1,15 @@
+<form action="{{ path('wc_userbundle_changetimezone') }}" method="post">
+    <input type="hidden" name="csrf" value="{{ csrf_token('timezone') }}">
+    <label>
+        Change timezone:
+        <select style="width:100%;line-height: 200%;" name="timezone" onchange="this.form.submit()">
+            {% for group,groups in timezones %}
+                <optgroup label="{{ group }}">
+                    {% for key,val in groups %}
+                        <option value="{{ key }}" {% if key == timezone %}selected="selected"{% endif %}>{{ key }}</option>
+                    {% endfor %}
+                </optgroup>
+            {% endfor %}
+        </select>
+    </label>
+</form>

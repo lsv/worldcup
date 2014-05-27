@@ -53,4 +53,13 @@ class DefaultController extends App
 
         return $this->redirect($this->generateUrl('wc_gamebundle_default'));
     }
+
+    /**
+     * @Route("/rules", name="wc_gamebundle_rules")
+     * @Template()
+     */
+    public function rulesAction()
+    {
+        return array();
+    }
 }

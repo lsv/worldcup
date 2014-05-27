@@ -85,7 +85,7 @@ class Bet extends Top
             if ($game->getIsFinish()) {
                 $bet->setCorrect($game->getWinnerByBet($bet->getBet()));
                 if ($bet->getCorrect()) {
-                    $bet->getUser()->setPoints($bet->getUser()->getPoints() + ($bet->getPoints() * 2));
+                    $bet->getUser()->setPoints($bet->getUser()->getPoints() + ($bet->getPoints()));
                 } else {
                     $bet->getUser()->setPoints($bet->getUser()->getPoints() - ($bet->getPoints()));
                 }
