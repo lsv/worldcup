@@ -14,12 +14,17 @@ use Wc\GameBundle\Entity;
 class Knockout extends EntityRepository
 {
 
-    public function getMatches()
+    /**
+     * @return array
+     */
+    public function getKnockoutMatches()
     {
         $matches = array();
         $knockouts = $this->findAll();
         foreach ($knockouts as &$knockout) {
             /** @var Entity\Knockout $knockout */
+            $this->getEntityManager()->detach($knockout);
+
             if ($knockout->getFromgroup()) {
                 list($number, $group) = str_split($knockout->getHometeam());
                 $hometeam = $this->getFromGroup($number, $group);
@@ -48,8 +53,19 @@ class Knockout extends EntityRepository
 
         }
 
+        return $matches;
+
+    }
+
+    /**
+     * @return array
+     */
+    public function getMatches()
+    {
+        $matches = $this->getKnockoutMatches();
         $out = array();
         foreach ($matches as $knockout) {
+            /** @var Entity\Knockout $knockout */
             if (array_key_exists($knockout->getStage()->getId(), $out)) {
                 $out[$knockout->getStage()->getId()]['matches'][] = $knockout;
             } else {

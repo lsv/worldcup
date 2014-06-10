@@ -51,7 +51,21 @@ class Knockout extends Result
      *
      * @ORM\Column(type="string", length=255)
      */
+    private $originalHometeam;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255)
+     */
     private $awayteam;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $originalAwayTeam;
 
     /**
      * @var boolean
@@ -203,6 +217,52 @@ class Knockout extends Result
     public function getAwayteam()
     {
         return $this->awayteam;
+    }
+
+    /**
+     * Set hometeam
+     *
+     * @param string $hometeam
+     * @return Knockout
+     */
+    public function setOriginalHometeam($hometeam)
+    {
+        $this->originalHometeam = $hometeam;
+
+        return $this;
+    }
+
+    /**
+     * Get hometeam
+     *
+     * @return string
+     */
+    public function getOriginalHometeam()
+    {
+        return $this->originalHometeam;
+    }
+
+    /**
+     * Set awayteam
+     *
+     * @param string $awayteam
+     * @return Knockout
+     */
+    public function setOriginalAwayteam($awayteam)
+    {
+        $this->originalAwayTeam = $awayteam;
+
+        return $this;
+    }
+
+    /**
+     * Get awayteam
+     *
+     * @return string
+     */
+    public function getOriginalAwayteam()
+    {
+        return $this->originalAwayTeam;
     }
 
     /**

@@ -64,7 +64,6 @@ class Stage extends EntityRepository
             $stagecomplete = true;
             foreach($stage->getGames() as $game) {
                 /** @var Entity\Game $game */
-                //$teams = &$groups[$stage->getId()]['teams'];
                 if (!isset($teams[$game->getHometeam()->getId()])) {
                     $teams[$game->getHometeam()->getId()]['team'] = $game->getHometeam();
                     $teams[$game->getHometeam()->getId()]['data'] = new TeamData($game->getHometeam()->getId());

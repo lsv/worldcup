@@ -87,6 +87,8 @@ CSV;
             $k
                 ->setAwayteam($awayteam)
                 ->setHometeam($hometeam)
+                ->setOriginalAwayteam($awayteam)
+                ->setOriginalHometeam($hometeam)
                 ->setMatchdate($date)
                 ->setMatchid($matchid)
                 ->setFromgroup((in_array(substr($hometeam,0, 1), array('W','L')) ? false : true))

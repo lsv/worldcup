@@ -69,12 +69,16 @@ abstract class Result
             return '';
         }
 
+        if ($this->getAwayresult() < $this->getHomeresult()) {
+            return self::LOSE_CLASS;
+        }
+
         if ($this->getAwayresult() > $this->getHomeresult()) {
             return self::WIN_CLASS;
         }
 
-        if ($this->getAwayresult() < $this->getHomeresult()) {
-            return self::LOSE_CLASS;
+        if ($this->drawIsAllowed) {
+            return self::DRAW_CLASS;
         }
 
         if ($this->getHomePenaltyResult() < $this->getAwayPenaltyResult()) {
