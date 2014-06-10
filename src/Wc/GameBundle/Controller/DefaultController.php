@@ -29,6 +29,7 @@ class DefaultController extends App
         }
 
         return array(
+            'datematches' => $this->getStageRepo()->getGroupByDate(),
             'stages' => $this->getStageRepo()->getGroups(),
             'knockouts' => $this->getKnockoutRepo()->getMatches(),
             'bets' => $this->getDoctrine()->getRepository('WcUserBundle:Bet')->getBets($this->getUser()),

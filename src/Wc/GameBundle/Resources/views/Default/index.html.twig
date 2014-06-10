@@ -5,6 +5,7 @@
         <div class="col-xs-6 col-sm-8">
             <ul class="nav nav-pills">
                 <li class="active"><a href="#groupstage" data-toggle="tab">Groups</a></li>
+                <li><a href="#dateprogram" data-toggle="tab">Date program</a></li>
                 <li><a href="#knockout" data-toggle="tab">Knouckout</a></li>
             </ul>
         </div>
@@ -21,6 +22,9 @@
         <div class="tab-content">
             <div class="tab-pane active" id="groupstage">
                 {% include 'WcGameBundle:Default/_p:groupstage.html.twig' with {'stages': stages} %}
+            </div>
+            <div class="tab-pane active" id="dateprogram">
+                {% include 'WcGameBundle:Default/_p:dateprogram.html.twig' %}
             </div>
             <div class="tab-pane" id="knockout">
                 {% include 'WcGameBundle:Default/_p:knockout.html.twig' with {'stages': knockouts} %}

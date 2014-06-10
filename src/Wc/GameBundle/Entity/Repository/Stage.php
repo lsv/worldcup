@@ -3,6 +3,7 @@
 namespace Wc\GameBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Lexer;
 use Wc\GameBundle\Entity;
 use Wc\GameBundle\Data\TeamData;
 
@@ -26,6 +27,23 @@ class Stage extends EntityRepository
         }
 
         return $this->findBy(array('stage' => $group));
+    }
+
+    public function getGroupByDate()
+    {
+        $query = $this->getEntityManager()->getRepository('WcGameBundle:Game')->createQueryBuilder('g');
+        $query
+            //->select('g.*')
+            //->join('Wc\GameBundle\Entity\Stage', 's', 'ON', 'g.stage_id = s.id')
+            ->addOrderBy('g.matchdate')
+            //->andWhere('s.isGroup = 1')
+        ;
+
+        #var_dump($query->getQuery()->getDQL());
+        #exit;
+
+        return $query->getQuery()->getResult();
+
     }
 
     /**
