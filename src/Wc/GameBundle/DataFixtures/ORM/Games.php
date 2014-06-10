@@ -19,7 +19,7 @@ class Games extends Fixture
 
     public function getOrder()
     {
-        return 13;
+        return 30;
     }
 
     private function insertRound($csv, $stage, ObjectManager $manager)

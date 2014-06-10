@@ -5,9 +5,7 @@ namespace Wc\UserBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
-use HWI\Bundle\OAuthBundle\Entity\Traits\FacebookTrait;
-use HWI\Bundle\OAuthBundle\Entity\Traits\RedditTrait;
-use HWI\Bundle\OAuthBundle\Entity\Traits\GithubTrait;
+use Wc\UserBundle\Entity\Traits;
 
 /**
  * User
@@ -17,9 +15,9 @@ use HWI\Bundle\OAuthBundle\Entity\Traits\GithubTrait;
  */
 class User extends BaseUser
 {
-    use FacebookTrait;
-    use GithubTrait;
-    use RedditTrait;
+    use Traits\FacebookTrait;
+    use Traits\GithubTrait;
+    use Traits\RedditTrait;
 
     /**
      * @var integer

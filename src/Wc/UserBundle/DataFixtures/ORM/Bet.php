@@ -32,7 +32,7 @@ class Bet extends Fixture
 
     public function getOrder()
     {
-        return 25;
+        return 110;
     }
 
 } 

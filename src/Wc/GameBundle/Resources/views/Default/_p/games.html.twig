@@ -15,12 +15,16 @@
         <td><small class="text-muted">{{ game.matchid }}</small></td>
         <td><small class="text-muted">{% include 'WcGameBundle:Default/_p:date.html.twig' with {"date": game.matchdate} %}</small></td>
         <td class="{{ game.getHomeStateClass }} col-xs-4 text-right">
-            <label class="betlabel" for="bet_{{ game.matchid }}_home">{% include 'WcGameBundle:Default/_p:team.html.twig' with {'team': game.hometeam, 'right':true} %}</label>
-            {% include 'WcGameBundle:Default/_p:matchbet.html.twig' with {'game': game, 'team': 'home', 'type': 'stage' } %}
+            <label class="betlabel" for="bet_{{ game.matchid }}_home">
+                {% include 'WcGameBundle:Default/_p:team.html.twig' with {'team': game.hometeam, 'right':true} %}
+            </label>
+            {% if is_granted('ROLE_USER') and dontincludepoint is not defined %}
+                {% include 'WcGameBundle:Default/_p:matchbet.html.twig' with {'game': game, 'team': 'home', 'type': 'stage' } %}
+            {% endif %}
         </td>
         <td class="{{ game.getHomeStateClass }} text-right">{{ game.homeresult|default("") }}</td>
         <td class="text-center" style="width:10px;">
-            {% if is_granted('ROLE_USER') %}
+            {% if is_granted('ROLE_USER') and dontincludepoint is not defined %}
                 {% include 'WcGameBundle:Default/_p:matchbet.html.twig' with {'game': game, 'team': 'draw', 'type': 'stage' } %}
             {% else %}
                 <label class="betlabel" for="bet_{{ game.matchid }}_draw">-</label>
@@ -28,12 +32,16 @@
         </td>
         <td class="{{ game.getAwayStateClass }}">{{ game.awayresult|default("") }}</td>
         <td class="{{ game.getAwayStateClass }} col-xs-4">
-            {% include 'WcGameBundle:Default/_p:matchbet.html.twig' with {'game': game, 'team': 'away', 'type': 'stage' } %}
+            {% if is_granted('ROLE_USER') and dontincludepoint is not defined %}
+                {% include 'WcGameBundle:Default/_p:matchbet.html.twig' with {'game': game, 'team': 'away', 'type': 'stage' } %}
+            {% endif %}
             <label class="betlabel" for="bet_{{ game.matchid }}_away">
                 {% include 'WcGameBundle:Default:_p/team.html.twig' with {'team': game.awayteam} %}
             </label>
         </td>
     </tr>
-    {% include 'WcGameBundle:Default/_p:matchbetpoint.html.twig' with {'game': game} %}
+    {% if is_granted('ROLE_USER') and dontincludepoint is not defined %}
+        {% include 'WcGameBundle:Default/_p:matchbetpoint.html.twig' with {'game': game} %}
+    {% endif %}
 {% endfor %}
 </table>

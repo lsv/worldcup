@@ -19,10 +19,13 @@
             <div class="bracket-game">
                 <div class="bracket-cell-r{{ ii }}">
                     <div class="bracket-info-cell">
+                        {{ m.matchid }} :
                         {% include 'WcGameBundle:Default/_p:date.html.twig' with {"date": m.matchdate, "small": true} %}
                     </div>
-                    <div class="bracket-player-top {{ m.getHomeStateClass }}">
-                        {% include 'WcGameBundle:Default/_p:matchbet.html.twig' with {'game': m, 'team': 'home', 'type': 'knockout', 'decided': decided, 'stage': stage.data.name } %}
+                    <div class="bracket-player-top bracket-player {{ m.getHomeStateClass }}">
+                        {% if is_granted('ROLE_USER') and dontincludepoint is not defined %}
+                            {% include 'WcGameBundle:Default/_p:matchbet.html.twig' with {'game': m, 'team': 'home', 'type': 'knockout', 'decided': decided, 'stage': stage.data.name } %}
+                        {% endif %}
                         <label class="betlabel" for="bet_{{ m.matchid }}_home">{{ ht }}</label>
                         <div class="bracket-score">
                             {{ m.homeresult|default("") }}
@@ -34,8 +37,10 @@
                 </div>
 
                 <div class="bracket-cell-r{{ ii }}">
-                    <div class="bracket-player-bottom {{ m.getAwayStateClass }}">
-                        {% include 'WcGameBundle:Default/_p:matchbet.html.twig' with {'game': m, 'team': 'away', 'type': 'knockout', 'decided': decided, 'stage': stage.data.name } %}
+                    <div class="bracket-player-bottom bracket-player {{ m.getAwayStateClass }}">
+                        {% if is_granted('ROLE_USER') and dontincludepoint is not defined %}
+                            {% include 'WcGameBundle:Default/_p:matchbet.html.twig' with {'game': m, 'team': 'away', 'type': 'knockout', 'decided': decided, 'stage': stage.data.name } %}
+                        {% endif %}
                         <label class="betlabel" for="bet_{{ m.matchid }}_away">{{ at }}</label>
                         <div class="bracket-score">
                             {{ m.awayresult|default("") }}
@@ -47,9 +52,9 @@
                 </div>
 
             </div>
-            {% include 'WcGameBundle:Default/_p:matchbetpoint.html.twig' with {'game': m} %}
-
-
+            {% if is_granted('ROLE_USER') and dontincludepoint is not defined %}
+                {% include 'WcGameBundle:Default/_p:matchbetpoint.html.twig' with {'game': m} %}
+            {% endif %}
         {% endfor %}
     </div>
 {% endfor %}

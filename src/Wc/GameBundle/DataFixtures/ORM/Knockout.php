@@ -19,7 +19,7 @@ class Knockout extends Fixture
 
     public function getOrder()
     {
-        return 15;
+        return 40;
     }
 
     private function roundWinner2(ObjectManager $manager)
@@ -92,6 +92,8 @@ CSV;
                 ->setFromgroup((in_array(substr($hometeam,0, 1), array('W','L')) ? false : true))
                 ->setStage($this->getReference($stagename))
             ;
+
+            $this->setReference('game-' . $matchid, $k);
 
             $manager->persist($k);
 

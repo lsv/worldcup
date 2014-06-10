@@ -1,8 +1,6 @@
-{% if is_granted('ROLE_USER') %}
-    <input
-        type="hidden"
-        id="bet_point_{{ game.matchid }}"
-        name="bet[point][{{ game.matchid }}]"
-        value="{% if bets[game.matchid] is defined %}{{ bets[game.matchid].points }}{% endif %}"
-    />
-{% endif %}
+<input
+    type="hidden"
+    id="bet_point_{{ game.matchid }}"
+    name="bet[{{ game.matchid }}][point]"
+    value="{% if bets[game.matchid] is defined %}{{ bets[game.matchid].points }}{% endif %}"
+/>

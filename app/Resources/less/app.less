@@ -33,7 +33,7 @@
 
 #menuswitch {top:50px;position:fixed;background-color:white;}
 
-.content {margin-top:75px;}
+.content {margin-top:20px;}
 
 label.betlabel {
   margin-bottom: 0;
@@ -44,8 +44,12 @@ label.betlabel {
   margin-top: 2px;
 }
 
-.teamname.hover {
-  font-weight: bold;
+.highlight {
+  font-weight: bold !important;
+  background-color: rgba(255, 255, 0, 0.40) !important;
+  .teamname {
+    font-weight: bold !important;
+  }
 }
 
 tfoot td {&:extend(.text-muted all);

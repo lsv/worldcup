@@ -33,7 +33,7 @@ class User extends Fixture
 
     public function getOrder()
     {
-        return 20;
+        return 100;
     }
 
 } 

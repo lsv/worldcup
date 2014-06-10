@@ -1,17 +1,14 @@
-{% if is_granted('ROLE_USER') %}
-    {% if decided is not defined or decided %}
-        <input
-            {% if bets is defined and bets[game.matchid] is defined and bets[game.matchid].bet == team %}
-                checked="checked"
-            {% endif %}
-            {% if game.isStarted %}disabled="disabled"{% endif %}
-            data-matchid="{{ game.matchid }}"
-            title="{{ stage }}: {{ game.hometeam.name }} - {{ game.awayteam.name }}: {{ team|capitalize }}{% if bets[game.matchid] is defined and bets[game.matchid].bet == team %} : Points: {{ bets[game.matchid].points }}{% endif %}"
-            class="bets"
-            type="radio"
-            id="bet_{{ game.matchid }}_{{ team }}"
-            name="bet[{{ type }}][{{ game.matchid }}]"
-            value="{{ team }}"
-        />
-    {% endif %}
+{% if decided is not defined or decided %}
+    <input
+        {% if bets is defined and bets[game.matchid] is defined and bets[game.matchid].bet == team %}
+            checked="checked"
+        {% endif %}
+        {% if game.isStarted %}disabled="disabled"{% endif %}
+        data-matchid="{{ game.matchid }}"
+        title="{% if stage is defined %}{{ stage }}: {% endif %}{{ game.hometeam.name }} - {{ game.awayteam.name }}: {{ team|capitalize }}{% if bets[game.matchid] is defined and bets[game.matchid].bet == team %} : Points: {{ bets[game.matchid].points }}{% endif %}"
+        class="bets"
+        type="radio"
+        name="bet[{{ game.matchid }}][{{ type }}]"
+        value="{{ team }}"
+    />
 {% endif %}
