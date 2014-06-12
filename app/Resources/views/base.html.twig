@@ -45,6 +45,27 @@
 
 {% endblock head_scripts %}
 
+{% block navbar %}
+    {% embed '::navbar.html.twig' with { fixedTop: true, staticTop: false, inverse: true } %}
+        {% block brand %}{% endblock %}
+        {% block menu %}
+            {{ mopa_bootstrap_menu('WcUserBundle:Builder:indexMenu', {'automenu': 'navbar'}) }}
+            {% if not is_granted('ROLE_USER') %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown first last">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in with <b class="caret"></b></a>
+                        <ul class="dropdown-menu pull-right menu_level_1" role="menu">
+                            {% render(controller('HWIOAuthBundle:Connect:connect')) %}
+                        </ul>
+                    </li>
+                </ul>
+            {% else %}
+                {{ mopa_bootstrap_menu('WcUserBundle:Builder:userMenu', {'automenu': 'navbar', 'pull-right': true}) }}
+            {% endif %}
+        {% endblock %}
+    {% endembed %} 
+{% endblock navbar %}
+
 {% block content_row %}
     {% block content %}{% endblock %}
 {% endblock %}
