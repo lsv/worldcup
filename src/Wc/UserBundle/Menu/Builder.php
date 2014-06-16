@@ -18,7 +18,7 @@ class Builder extends ContainerAware
         ));
         
         $menu->addChild('Top lists', array(
-            'route' => 'top_bets'
+            'route' => 'top_user'
         ));
         
         $menu->addChild('Rules of engangement', array(

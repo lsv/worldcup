@@ -3,6 +3,7 @@
 namespace Wc\UserBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Wc\UserBundle\Entity;
 
 /**
  * UserRepository
@@ -12,4 +13,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class User extends EntityRepository
 {
+    public function toplist()
+    {
+        $users = $this->findBy(
+            array(),
+            array('points' => 'desc')
+        );
+        
+        foreach($users as $key => $u) {
+            /** @var Entity\User $u */
+            if ($u->getBets()->count() <= 0) {
+                unset($users[$key]);
+            }
+        }
+        
+        return $users;
+        
+    }
 }

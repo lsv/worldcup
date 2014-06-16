@@ -1,6 +1,7 @@
 <aside class="col-sm-3">
     <h3>Other top lists</h3>
     <ul class="nav nav-pills nav-stacked">
+        <li {% if active == 'top_user' %}class="active"{% endif %}><a href="{{ path('top_user') }}">Users</a></li>
         <li {% if active == 'top_bets' %}class="active"{% endif %}><a href="{{ path('top_bets') }}">Betters</a></li>
         <li {% if active == 'top_spend' %}class="active"{% endif %}><a href="{{ path('top_spend') }}">Spenders</a></li>
         <li {% if active == 'top_corrects' %}class="active"{% endif %}><a href="{{ path('top_corrects') }}">Most correct bets</a></li>

@@ -16,9 +16,23 @@ class TopController extends App
 {
     const PRPAGE = 100;
     protected $reponame = 'Bet';
+
+    /**
+     * @Route("/{page}", name="top_user", defaults={"page" = 1}, requirements={"page" = "\d+"})
+     * @Template()
+     */
+    public function topUserAction($page)
+    {
+        $list = $this->getDoctrine()->getRepository('WcUserBundle:User')->toplist();
+        return array(
+            'prpage' => self::PRPAGE,
+            'page' => $page,
+            'list' => $this->pagination($list, $page) 
+        );
+    }
     
     /**
-     * @Route("/{page}", name="top_bets", defaults={"page" = 1}, requirements={"page" = "\d+"})
+     * @Route("/bets/{page}", name="top_bets", defaults={"page" = 1}, requirements={"page" = "\d+"})
      * @Template()
      */
     public function topBetsAction($page)

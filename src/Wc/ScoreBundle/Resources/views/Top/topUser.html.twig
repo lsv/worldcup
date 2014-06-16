@@ -1,0 +1,39 @@
+{% extends '::base.html.twig' %}
+{% block content %}
+    <div class="row">
+        {% include 'WcScoreBundle:Top/_partial:aside.html.twig' with {'active': 'top_user'} %}
+        <div class="col-sm-9">
+            <h2>Top users!</h2>
+            
+            {% if list|length > 0 %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>User</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" style="text-align: center">{{ knp_pagination_render(list) }}</td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% set pos = ((page - 1) * prpage) + 1 %}
+                        {% for u in list %}
+                            <tr>
+                                <td>{{ pos }}</td>
+                                <td>{{ u.username }} @ {{ u.type }}</td>
+                                <td>{{ u.points }}</td>
+                            </tr>
+                            {% set pos = (pos+1) %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>We are still awaiting some results...</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
