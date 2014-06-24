@@ -105,21 +105,30 @@ class Bet extends Top
     public function setBets(Entity\User $user, $bets, FlashBagInterface $flashbag)
     {
         foreach($bets as $matchid => $bet) {
-            if (! array_key_exists('stage', $bet) || ! array_key_exists('point', $bet)) {
+            $sk = array_key_exists('stage', $bet);
+            $kk = array_key_exists('knockout', $bet);
+            $pk = array_key_exists('point', $bet);
+            
+            if (!$pk) {
                 continue;
             }
+            
+            if (! $sk && !$kk) {
+                continue;
+            }
+            
+            $stage = (array_key_exists('stage', $bet) ? 'stage' : 'knockout');
 
             if ($bet['point'] === 0) {
                 continue;
             }
-
             $points = $this->checkPoints($bet['point'], $matchid);
             if ($points !== false) {
-                $obj = $this->findBet($bet['stage'], $matchid, $user);
+                $obj = $this->findBet($stage, $matchid, $user);
                 if ($obj === null) {
                     $obj = new Entity\Bet();
                     $obj->setUser($user);
-                    if ($bet['stage'] == Entity\Repository\Bet::KNOCKOUT) {
+                    if ($stage == Entity\Repository\Bet::KNOCKOUT) {
                         $mm = $this->getEntityManager()->getRepository('WcGameBundle:Knockout')->findOneBy(array('matchid' => $matchid));
                         $obj->setKnockout($mm);
                     } else {
@@ -132,14 +141,14 @@ class Bet extends Top
                 }
 
                 $obj->setPoints($points);
-                $obj->setBet($bet['stage']);
+                $obj->setBet($bet[$stage]);
                 $this->getEntityManager()->persist($obj);
             } else {
                 $flashbag->add('info', 'Points are not correct set for the match');
             }
 
         }
-
+        
         $this->getEntityManager()->flush();
         $flashbag->add('success', 'Your bets are now saved');
     }
