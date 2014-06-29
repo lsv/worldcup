@@ -117,28 +117,34 @@ class ResultCommand extends Command implements ContainerAwareInterface
         if (! $this->helper->ask($input, $output, $question)) {
             return $this->setResult($input, $output, $match);
         } else {
-            $match
-                ->setHomeresult($homeres)
-                ->setAwayresult($awayres)
-            ;
-
             if ($match instanceof Entity\Knockout) {
-                $match
-                    ->setHometeam($match->getOriginalHometeam())
-                    ->setAwayteam($match->getOriginalAwayteam())
+                $knockoutmatch = $this->doctrine->getRepository('WcGameBundle:Knockout')->find($match->getId());
+                $knockoutmatch
+                    ->setHomeresult($homeres)
+                    ->setAwayresult($awayres)
                 ;
                 if (isset($homeres_pen) && isset($awayres_pen)) {
-                    $match
+                    $knockoutmatch
                         ->setHomePenaltyResult($homeres_pen)
                         ->setAwayPenaltyResult($awayres_pen)
                     ;
                 }
+
+                $this->doctrine->getManager()->persist($knockoutmatch);
+
+
+            } else {
+                $match
+                    ->setHomeresult($homeres)
+                    ->setAwayresult($awayres)
+                ;
+
+                $this->doctrine->getManager()->persist($match);
+
             }
         }
 
-        $this->doctrine->getManager()->persist($match);
         $this->doctrine->getManager()->flush();
-
         return true;
 
     }

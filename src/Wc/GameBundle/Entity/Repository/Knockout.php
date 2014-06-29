@@ -39,6 +39,7 @@ class Knockout extends EntityRepository
                 $type = substr($knockout->getAwayteam(), 0, 1);
                 $id = substr($knockout->getAwayteam(), 1);
                 $awayteam = $this->getFromKnockout($matches, $type, $id);
+
             }
 
             if ($hometeam !== null) {
